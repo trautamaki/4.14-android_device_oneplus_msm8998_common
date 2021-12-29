@@ -497,13 +497,13 @@ service vendor.ppd /vendor/bin/mm-pp-dpps
     writepid /dev/cpuset/system-background/tasks
     disabled
 
-on property:init.svc.vendor.hwcomposer-2-1=stopped
+on property:init.svc.vendor.hwcomposer-2-3=stopped
     stop vendor.ppd
 
-on property:init.svc.vendor.hwcomposer-2-1=running
+on property:init.svc.vendor.hwcomposer-2-3=running
     start vendor.ppd
 
-on property:init.svc.vendor.hwcomposer-2-1=restarting
+on property:init.svc.vendor.hwcomposer-2-3=restarting
     stop vendor.ppd
 
 service vendor.qrtr-ns /vendor/bin/qrtr-ns -f
