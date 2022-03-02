@@ -534,3 +534,14 @@ service vendor.thermal-engine /vendor/bin/thermal-engine
     socket thermal-send-rule stream 0660 system system
     group root
     writepid /dev/cpuset/system-background/tasks
+
+on post-fs-data
+    #create ipacm log dir
+    mkdir /data/vendor/ipa 0770 radio radio
+
+service vendor.ipacm /vendor/bin/ipacm
+    interface android.hardware.tetheroffload.config@1.0::IOffloadConfig default
+    interface android.hardware.tetheroffload.control@1.0::IOffloadControl default
+    class main
+    user radio
+    group radio inet
