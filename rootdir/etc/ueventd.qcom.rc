@@ -98,7 +98,7 @@ firmware_directories /vendor/firmware_mnt/image/
 /dev/sensors              0660   system     system
 
 # nfc
-/dev/nq-nci               0660   nfc        nfc
+/dev/pn54x                0660   nfc        nfc
 
 # UIO
 /dev/uio0                 0660   system     system
