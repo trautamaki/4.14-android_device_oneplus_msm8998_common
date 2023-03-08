@@ -1,25 +1,7 @@
 #
 # Copyright (C) 2017 The LineageOS Open Source Project
 #
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#      http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-#
-
-#
-# This file sets variables that control the way modules are built
-# thorughout the system. It should not be used to conditionally
-# disable makefiles (the proper mechanism to control what gets
-# included in a build is to use PRODUCT_PACKAGES in a product
-# definition file).
+# SPDX-License-Identifier: Apache-2.0
 #
 
 PLATFORM_PATH := device/oneplus/msm8998-common
@@ -99,9 +81,6 @@ AUDIO_FEATURE_ENABLED_RAS := true
 AUDIO_FEATURE_ENABLED_DYNAMIC_LOG := false
 AUDIO_FEATURE_ENABLED_SND_MONITOR := true
 
-# Bluetooth
-BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := $(PLATFORM_PATH)/bluetooth/include
-
 # Display
 TARGET_SCREEN_DENSITY := 420
 TARGET_USES_GRALLOC1 := true
@@ -127,17 +106,8 @@ SOONG_CONFIG_NAMESPACES += gralloc
 SOONG_CONFIG_gralloc := use_v1
 SOONG_CONFIG_gralloc_use_v1 := true
 
-# DRM
-TARGET_ENABLE_MEDIADRM_64 := true
-
 # Filesystem
 TARGET_FS_CONFIG_GEN += $(PLATFORM_PATH)/config.fs
-
-# GPS
-BOARD_VENDOR_QCOM_GPS_LOC_API_HARDWARE := $(TARGET_BOARD_PLATFORM)
-BOARD_VENDOR_QCOM_LOC_PDK_FEATURE_SET := true
-GNSS_HIDL_VERSION := 2.0
-LOC_HIDL_VERSION := 3.0
 
 # HIDL
 DEVICE_FRAMEWORK_MANIFEST_FILE := $(PLATFORM_PATH)/framework_manifest.xml
@@ -202,6 +172,10 @@ PRODUCT_PUBLIC_SEPOLICY_DIRS += $(PLATFORM_PATH)/sepolicy/public
 PRODUCT_FULL_TREBLE_OVERRIDE := true
 TARGET_COPY_OUT_VENDOR := vendor
 
+# Verity
+# Only needed for signing
+BOARD_AVB_ENABLE := false
+
 # VNDK
 BOARD_VNDK_VERSION := current
 
@@ -219,4 +193,4 @@ WIFI_HIDL_UNIFIED_SUPPLICANT_SERVICE_RC_ENTRY := true
 WPA_SUPPLICANT_VERSION := VER_0_8_X
 
 # inherit from the proprietary version
--include vendor/oneplus/msm8998-common/BoardConfigVendor.mk
+include vendor/oneplus/msm8998-common/BoardConfigVendor.mk

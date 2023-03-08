@@ -1,19 +1,8 @@
 /*
  * Copyright (c) 2016 The CyanogenMod Project
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * SPDX-License-Identifier: Apache-2.0
  */
-
 package org.lineageos.pocketmode;
 
 import android.app.Service;
@@ -68,8 +57,8 @@ public class PocketModeService extends Service {
     private BroadcastReceiver mScreenStateReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            if (intent.getAction().equals(Intent.ACTION_SCREEN_ON)) {
-                if (DEBUG) Log.d(TAG, "Display on");
+            if (intent.getAction().equals(Intent.ACTION_USER_PRESENT)) {
+                if (DEBUG) Log.d(TAG, "Device unlocked");
                 mProximitySensor.disable();
             } else if (intent.getAction().equals(Intent.ACTION_SCREEN_OFF)) {
                 if (DEBUG) Log.d(TAG, "Display off");
@@ -109,7 +98,7 @@ public class PocketModeService extends Service {
                     ? 1 : 0, UserHandle.USER_CURRENT) == 1;
 
             if (proximityWakeCheckEnabled) {
-                IntentFilter screenStateFilter = new IntentFilter(Intent.ACTION_SCREEN_ON);
+                IntentFilter screenStateFilter = new IntentFilter(Intent.ACTION_USER_PRESENT);
                 screenStateFilter.addAction(Intent.ACTION_SCREEN_OFF);
                 registerReceiver(mScreenStateReceiver, screenStateFilter);
                 mIsRegistered = true;
