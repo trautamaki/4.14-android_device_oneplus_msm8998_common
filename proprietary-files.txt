@@ -51,8 +51,8 @@ vendor/bin/hw/vendor.oneplus.hardware.ifaa@2.0-service
 vendor/etc/init/vendor.oneplus.hardware.ifaa@2.0-service.rc
 vendor/lib64/vendor.oneplus.hardware.ifaa@2.0.so
 
-# ANT+ - from sld_sprout RKQ1.210607.001-00WW_3_490
-vendor/lib64/hw/com.dsi.ant@1.0-impl.so|87dc1a131534659173e71e108e7a3ffe6325845f
+# ANT+ - from OnePlus 7 Pro (GM1911_11_H.38)
+vendor/lib64/hw/com.dsi.ant@1.0-impl.so|b5c57fdf48447c68b6308fdcb167d0d21b5c56ed
 
 # Audio
 vendor/lib/soundfx/libasphere.so
@@ -67,16 +67,31 @@ vendor/lib/libaudioparsers.so
 vendor/lib/libdrc.so
 vendor/lib/libqtigef.so
 
-# Bluetooth - from sld_sprout RKQ1.210607.001-00WW_3_490
-vendor/bin/hw/android.hardware.bluetooth@1.0-service-qti|07d96d0d3c4a500b14ea3c97e02b9eb5ee2bbc4d
+# Bluetooth - from OnePlus 7 Pro (GM1911_11_H.38)
+vendor/bin/hw/android.hardware.bluetooth@1.0-service-qti|275aeb202001803c6bd6d632bf7958c8775468ad
 vendor/etc/init/android.hardware.bluetooth@1.0-service-qti.rc|f4ee3b2da2b08647447869ade86ec63f7340accc
-vendor/lib64/hw/android.hardware.bluetooth@1.0-impl-qti.so|14d44c77a6f0b305ec7e03e679d7692884a3985d
-vendor/lib64/hw/vendor.qti.hardware.bluetooth_sar@1.1-impl.so|156ec51ccb53f667605cf99422abf9357888b4b6
-vendor/lib64/hw/vendor.qti.hardware.btconfigstore@2.0-impl.so|3e1a8c52d73ef5e67bea68610906627226aabe21
-vendor/lib64/libbtnv.so|0c74a43550b939b9496b03b3285fa950cf560c48
-vendor/lib64/vendor.qti.hardware.bluetooth_sar@1.0.so|23706dcfa35cc6f7dee934e13886c19a56a9aa12
-vendor/lib64/vendor.qti.hardware.bluetooth_sar@1.1.so|ece3dafc4447e8302109851c3a6b0d3978b3506d
-vendor/lib64/vendor.qti.hardware.fm@1.0.so|f6e23f902b7e15232b20af55161a24da93ffe25f
+vendor/lib64/hw/android.hardware.bluetooth@1.0-impl-qti.so|e73b71ee7dfcdb465b3d2fd4815602b749a77825
+vendor/lib64/libbtnv.so|07e031527e60ce5e62a5017fd1d7ff83ef1aafcf
+
+# Bluetooth (A2DP) - from OnePlus 7 Pro (GM1911_11_H.38)
+vendor/lib/hw/vendor.qti.hardware.bluetooth_audio@2.0-impl.so|9a6ac654ed3270ec880ef0ff37baf33fa4fc8194
+vendor/lib/hw/vendor.qti.hardware.bluetooth_sar@1.1-impl.so|61c91107a4032634f1520340e75f015e44fd8dbc
+vendor/lib/hw/vendor.qti.hardware.btconfigstore@1.0-impl.so|1df393fc39d60727becb875fd86716d057bed3b1
+vendor/lib/hw/vendor.qti.hardware.btconfigstore@2.0-impl.so|923324f9b2dfa4d6d2f2969758bdd75713ea132b
+vendor/lib/btaudio_offload_if.so|29d13cf463ff767ef20ee473a4a13e8167f3326e
+vendor/lib/libbluetooth_audio_session_qti.so|cc1c0ad9ee75193ed21e818fac21158a6d489344
+vendor/lib/vendor.qti.hardware.bluetooth_sar@1.0.so|7e4587a1ac13de4d1ee8463b3aae487346f31b12
+vendor/lib/vendor.qti.hardware.bluetooth_sar@1.1.so|fbce94fed6a22fd527506d14d10a4df785b8fa25
+vendor/lib/vendor.qti.hardware.fm@1.0.so|ec14a34ecae5061d674283499a812374c8be4ce5
+vendor/lib64/hw/vendor.qti.hardware.bluetooth_audio@2.0-impl.so|aa8266c9cbd1a8c8e7d639efcea11b9482c6efb4
+vendor/lib64/hw/vendor.qti.hardware.bluetooth_sar@1.1-impl.so|a97a6c330c932176acee0bce820c6e737778aed4
+vendor/lib64/hw/vendor.qti.hardware.btconfigstore@1.0-impl.so|3e355ba4be40f42ae02bbc791757268f8c2e6ad9
+vendor/lib64/hw/vendor.qti.hardware.btconfigstore@2.0-impl.so|fff399477117ab9398bdf9092f2fe847c7abb73c
+vendor/lib64/btaudio_offload_if.so|cdf8f2cf1964d260ad472d6cabf0bde186f236a2
+vendor/lib64/libbluetooth_audio_session_qti.so|f3f08327c49b0454bd374e46d9f233a564b0cebd
+vendor/lib64/vendor.qti.hardware.bluetooth_sar@1.0.so|d1443e04e24cb45dd06f5d222b22a699c9e82cb1
+vendor/lib64/vendor.qti.hardware.bluetooth_sar@1.1.so|1671815a79dab0fde9248d0851085ec1ab314f64
+vendor/lib64/vendor.qti.hardware.fm@1.0.so|17e86e9a2054db733d955fcf1066f6e06a44fb21
 
 # CACert
 vendor/app/CACertService/CACertService.apk
