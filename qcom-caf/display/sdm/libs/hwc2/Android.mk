@@ -8,19 +8,20 @@ LOCAL_MODULE                  := hwcomposer.$(TARGET_BOARD_PLATFORM)
 LOCAL_VENDOR_MODULE           := true
 LOCAL_MODULE_RELATIVE_PATH    := hw
 LOCAL_MODULE_TAGS             := optional
-LOCAL_C_INCLUDES              := $(kernel_includes)
+LOCAL_C_INCLUDES              := $(common_includes)
+LOCAL_C_INCLUDES              += $(kernel_includes)
 LOCAL_ADDITIONAL_DEPENDENCIES := $(common_deps)
 LOCAL_HEADER_LIBRARIES        := display_headers
 
 LOCAL_CFLAGS                  := -Wno-missing-field-initializers -Wno-unused-parameter \
-                                 -fcolor-diagnostics \
+                                 -std=c++11 -fcolor-diagnostics\
                                  -DLOG_TAG=\"SDM\" $(common_flags)
 LOCAL_CLANG                   := true
 
 LOCAL_SHARED_LIBRARIES        := libsdmcore libqservice libbinder libhardware libhardware_legacy \
                                  libutils libcutils libsync libqdutils libqdMetaData \
                                  libdisplaydebug libsdmutils libc++ liblog libgrallocutils libui \
-                                 libgpu_tonemapper libhidlbase \
+                                 libgpu_tonemapper libhidlbase libhidltransport \
                                  android.hardware.graphics.mapper@2.0 \
                                  android.hardware.graphics.mapper@2.1 \
                                  android.hardware.graphics.mapper@3.0 \
@@ -43,6 +44,10 @@ ifeq ($(TARGET_BOARD_AUTO), true)
 LOCAL_CFLAGS                  += -DCONFIG_BASEID_FROM_PROP
 endif
 
+ifeq ($(TARGET_USES_FOD_ZPOS), true)
+LOCAL_CFLAGS                  += -DFOD_ZPOS
+endif
+
 LOCAL_SRC_FILES               := hwc_session.cpp \
                                  hwc_session_services.cpp \
                                  hwc_display.cpp \
@@ -61,8 +66,6 @@ LOCAL_SRC_FILES               := hwc_session.cpp \
                                  display_null.cpp \
                                  hwc_socket_handler.cpp \
                                  hwc_buffer_allocator.cpp
-
-LOCAL_VINTF_FRAGMENTS         := vendor.qti.hardware.display.composer-service.xml
 
 include $(BUILD_SHARED_LIBRARY)
 endif

@@ -314,10 +314,8 @@ int engine_blit(int srcFenceFd)
 void checkGlError(const char *file, int line)
 //-----------------------------------------------------------------------------
 {
-  GLint error = glGetError();
-  while (error !=  GL_NO_ERROR) {
-    error = glGetError();
-    char *pError = nullptr;
+  for (GLint error = glGetError(); error; error = glGetError()) {
+    char *pError;
     switch (error) {
       case GL_NO_ERROR:
         pError = (char *)"GL_NO_ERROR";
@@ -340,7 +338,7 @@ void checkGlError(const char *file, int line)
 
       default:
         ALOGE("glError (0x%x) %s:%d\n", error, file, line);
-        break;
+        return;
     }
 
     ALOGE("glError (%s) %s:%d\n", pError, file, line);
@@ -359,7 +357,7 @@ void checkEglError(const char *file, int line)
       break;
     }
 
-    char *pError = nullptr;
+    char *pError;
     switch (error) {
       case EGL_SUCCESS:
         pError = (char *)"EGL_SUCCESS";
@@ -411,6 +409,7 @@ void checkEglError(const char *file, int line)
         return;
     }
     ALOGE("eglError (%s) %s:%d\n", pError, file, line);
+    return;
   }
   return;
 }

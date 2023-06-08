@@ -235,32 +235,6 @@ bool IsGPUFlagSupported(uint64_t usage) {
   return ret;
 }
 
-int GetBpp(int format) {
-  if (IsUncompressedRGBFormat(format)) {
-    return GetBppForUncompressedRGB(format);
-  }
-  switch (format) {
-    case HAL_PIXEL_FORMAT_COMPRESSED_RGBA_ASTC_4x4_KHR:
-    case HAL_PIXEL_FORMAT_COMPRESSED_SRGB8_ALPHA8_ASTC_4x4_KHR:
-    case HAL_PIXEL_FORMAT_RAW8:
-    case HAL_PIXEL_FORMAT_Y8:
-      return 1;
-    case HAL_PIXEL_FORMAT_RAW16:
-    case HAL_PIXEL_FORMAT_Y16:
-    case HAL_PIXEL_FORMAT_YCbCr_422_SP:
-    case HAL_PIXEL_FORMAT_YCrCb_422_SP:
-    case HAL_PIXEL_FORMAT_YCbCr_422_I:
-    case HAL_PIXEL_FORMAT_YCrCb_422_I:
-    case HAL_PIXEL_FORMAT_CbYCrY_422_I:
-      return 2;
-    case HAL_PIXEL_FORMAT_YCbCr_420_P010_VENUS:
-    case HAL_PIXEL_FORMAT_YCbCr_420_P010:
-      return 3;
-    default:
-      return -1;
-  }
-}
-
 // Returns the final buffer size meant to be allocated with ion
 unsigned int GetSize(const BufferInfo &info, unsigned int alignedw, unsigned int alignedh) {
   unsigned int size = 0;
@@ -888,6 +862,9 @@ void GetAlignedWidthAndHeight(const BufferInfo &info, unsigned int *alignedw,
   // Below should be only YUV family
   switch (format) {
     case HAL_PIXEL_FORMAT_YCrCb_420_SP:
+#ifdef USE_UNALIGNED_YCRCB
+      break;
+#endif
     case HAL_PIXEL_FORMAT_YCbCr_420_SP:
       if (AdrenoMemInfo::GetInstance() == nullptr) {
         return;
@@ -940,8 +917,10 @@ void GetAlignedWidthAndHeight(const BufferInfo &info, unsigned int *alignedw,
     case HAL_PIXEL_FORMAT_RAW_OPAQUE:
       break;
     case HAL_PIXEL_FORMAT_NV21_ZSL:
+#ifndef USE_UNALIGNED_NV21_ZSL
       aligned_w = ALIGN(width, 64);
       aligned_h = ALIGN(height, 64);
+#endif
       break;
     case HAL_PIXEL_FORMAT_NV12_HEIF:
       aligned_w = INT(VENUS_Y_STRIDE(COLOR_FMT_NV12_512, width));
@@ -1210,7 +1189,13 @@ int GetImplDefinedFormat(uint64_t usage, int format) {
       if (format == HAL_PIXEL_FORMAT_YCbCr_420_888) {
         gr_format = HAL_PIXEL_FORMAT_NV21_ZSL;  // NV21
       } else {
+#ifdef USE_YCRCB_CAMERA_PREVIEW
+        gr_format = HAL_PIXEL_FORMAT_YCrCb_420_SP;  // NV21 preview
+#elif USE_YCRCB_CAMERA_PREVIEW_VENUS
+        gr_format = HAL_PIXEL_FORMAT_YCrCb_420_SP_VENUS;  // NV21 preview
+#else
         gr_format = HAL_PIXEL_FORMAT_YCbCr_420_SP_VENUS;  // NV12 preview
+#endif
       }
     } else if (usage & BufferUsage::COMPOSER_OVERLAY) {
       // XXX: If we still haven't set a format, default to RGBA8888
