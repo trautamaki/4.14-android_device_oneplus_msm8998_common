@@ -14,6 +14,7 @@ TARGET_NO_BOOTLOADER := true
 
 # Platform
 TARGET_BOARD_PLATFORM := msm8998
+TARGET_ENFORCES_QSSI := true
 
 # Architecture
 TARGET_ARCH := arm64
